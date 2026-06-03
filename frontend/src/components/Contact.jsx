@@ -23,13 +23,12 @@ export default function Contact() {
     setLoading(true);
 
     try {
-      // Try to submit to backend
-      await axios.post('http://localhost:5000/api/contact', formData);
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_URL}/api/contact`, formData);
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
-      // Fallback: just show success message even if backend unavailable
       console.log('Form data:', formData);
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', message: '' });
